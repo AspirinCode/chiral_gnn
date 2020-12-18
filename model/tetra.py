@@ -28,13 +28,13 @@ class TetraPermuter(nn.Module):
             
         self.perms = dict()
         self.perms["di"] = torch.tensor([[0, 1],
-                                       [1, 0]])
+                                       [1, 0]]).to(self.device)
         self.perms["tri"] = torch.tensor([[0, 1, 2],
                                         [0, 2, 1],
                                         [1, 0, 2],
                                         [1, 2, 0],
                                         [2, 0, 1],
-                                        [2, 1, 0]])
+                                        [2, 1, 0]]).to(self.device)
         self.perms["tetra_chiral"] = torch.tensor([[0, 1, 2, 3],
                                                  [0, 2, 3, 1],
                                                  [0, 3, 1, 2],
@@ -46,7 +46,7 @@ class TetraPermuter(nn.Module):
                                                  [2, 3, 0, 1],
                                                  [3, 0, 2, 1],
                                                  [3, 1, 0, 2],
-                                                 [3, 2, 1, 0]])
+                                                 [3, 2, 1, 0]]).to(self.device)
         self.perms["tetra_nonchiral"] = torch.tensor([[0, 1, 2, 3],
                                                     [0, 1, 3, 2],
                                                     [0, 2, 1, 3],
@@ -70,7 +70,7 @@ class TetraPermuter(nn.Module):
                                                     [3, 1, 0, 2],
                                                     [3, 1, 2, 0],
                                                     [3, 2, 0, 1],
-                                                    [3, 2, 1, 0]])
+                                                    [3, 2, 1, 0]]).to(self.device)
 
     def reset_parameters(self):
         for n_neighbor, W_bs in self.W_bs.items():
@@ -113,13 +113,13 @@ class ConcatTetraPermuter(nn.Module):
 
         self.perms = dict()
         self.perms["di"] = torch.tensor([[0, 1],
-                                       [1, 0]])
+                                       [1, 0]]).to(self.device)
         self.perms["tri"] = torch.tensor([[0, 1, 2],
                                         [0, 2, 1],
                                         [1, 0, 2],
                                         [1, 2, 0],
                                         [2, 0, 1],
-                                        [2, 1, 0]])
+                                        [2, 1, 0]]).to(self.device)
         self.perms["tetra_chiral"] = torch.tensor([[0, 1, 2, 3],
                                                  [0, 2, 3, 1],
                                                  [0, 3, 1, 2],
@@ -131,7 +131,7 @@ class ConcatTetraPermuter(nn.Module):
                                                  [2, 3, 0, 1],
                                                  [3, 0, 2, 1],
                                                  [3, 1, 0, 2],
-                                                 [3, 2, 1, 0]])
+                                                 [3, 2, 1, 0]]).to(self.device)
         self.perms["tetra_nonchiral"] = torch.tensor([[0, 1, 2, 3],
                                                     [0, 1, 3, 2],
                                                     [0, 2, 1, 3],
@@ -155,7 +155,7 @@ class ConcatTetraPermuter(nn.Module):
                                                     [3, 1, 0, 2],
                                                     [3, 1, 2, 0],
                                                     [3, 2, 0, 1],
-                                                    [3, 2, 1, 0]])
+                                                    [3, 2, 1, 0]]).to(self.device)
 
     def forward(self, x, n_neighbor):
 
