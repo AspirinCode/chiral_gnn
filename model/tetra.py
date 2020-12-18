@@ -14,11 +14,11 @@ class TetraPermuter(nn.Module):
         self.n_nums["tri"] = 3
         self.n_nums["tetra_nonchiral"] = 4
         self.n_nums["tetra_chiral"] = 4
-        
+        self.device = device
+
         self.W_bs = dict()
         for n_neighbor, num in self.n_nums.items():
-            self.W_bs[n_neighbor] = nn.ModuleList([copy.deepcopy(nn.Linear(hidden, hidden)) for _ in range(num)])
-        self.device = device
+            self.W_bs[n_neighbor] = nn.ModuleList([copy.deepcopy(nn.Linear(hidden, hidden)) for _ in range(num)]).to(self.device)
         self.drop = nn.Dropout(p=0.2)
         self.reset_parameters()
         self.mlp_out = nn.Sequential(nn.Linear(hidden, hidden),
@@ -98,13 +98,14 @@ class ConcatTetraPermuter(nn.Module):
         self.n_nums["tri"] = 3
         self.n_nums["tetra_nonchiral"] = 4
         self.n_nums["tetra_chiral"] = 4
+        self.device = device
         
         self.W_bs = dict()
         for n_neighbor, num in self.n_nums.items():
-            self.W_bs[n_neighbor] = nn.Linear(hidden*num, hidden)
+            self.W_bs[n_neighbor] = nn.Linear(hidden*num, hidden).to(self.device)
             torch.nn.init.xavier_normal_(self.W_bs[n_neighbor].weight, gain=1.0)
+
         self.hidden = hidden
-        self.device = device
         self.drop = nn.Dropout(p=0.2)
         self.mlp_out = nn.Sequential(nn.Linear(hidden, hidden),
                                      nn.BatchNorm1d(hidden),
